@@ -1,0 +1,120 @@
+Project Two Pseudocode - Airgead Banking Investment App
+Author: Shamsy Fiza
+
+CLASS Investment
+    Store initialInvestment
+    Store monthlyDeposit
+    Store annualInterest
+    Store numberOfYears
+
+    FUNCTION Investment
+        Set initialInvestment to zero
+        Set monthlyDeposit to zero
+        Set annualInterest to zero
+        Set numberOfYears to zero
+    END FUNCTION
+
+    FUNCTION setInitialInvestment(amount)
+        IF amount is less than zero THEN return false
+        Set initialInvestment to amount
+        Return true
+    END FUNCTION
+
+    FUNCTION setMonthlyDeposit(amount)
+        IF amount is less than zero THEN return false
+        Set monthlyDeposit to amount
+        Return true
+    END FUNCTION
+
+    FUNCTION setAnnualInterest(percent)
+        IF percent is less than zero THEN return false
+        Set annualInterest to percent
+        Return true
+    END FUNCTION
+
+    FUNCTION setNumberOfYears(years)
+        IF years is less than one THEN return false
+        Set numberOfYears to years
+        Return true
+    END FUNCTION
+
+    FUNCTION calculateWithoutDeposits
+        Call calculate with a deposit of zero
+        Return the list of yearly results
+    END FUNCTION
+
+    FUNCTION calculateWithDeposits
+        Call calculate with monthlyDeposit
+        Return the list of yearly results
+    END FUNCTION
+
+    FUNCTION calculate(deposit)
+        Create an empty list of yearly results
+        Set balance to initialInvestment
+        Set monthlyRate to annualInterest divided by 100 divided by 12
+        FOR each year from 1 to numberOfYears
+            Set yearInterest to zero
+            FOR each month from 1 to 12
+                Add deposit to balance
+                Set monthInterest to balance times monthlyRate
+                Add monthInterest to balance
+                Add monthInterest to yearInterest
+            END FOR
+            Add year, balance, and yearInterest to the list
+        END FOR
+        Return the list
+    END FUNCTION
+END CLASS
+
+FUNCTION readValue(prompt, setter)
+    REPEAT
+        Display prompt
+        Read the value from the user
+        IF the read succeeded AND the setter accepts the value THEN return the value
+        Clear the input error
+        Discard the rest of the input line
+        Display an invalid input message
+    UNTIL a valid value is returned
+END FUNCTION
+
+FUNCTION formatMoney(amount)
+    Format amount with a dollar sign and two decimal places
+    Return the text
+END FUNCTION
+
+FUNCTION printInputScreen(investment, showValues)
+    Display the Data Input banner
+    IF showValues is true THEN
+        Display initial investment
+        Display monthly deposit
+        Display annual interest
+        Display number of years
+    END IF
+END FUNCTION
+
+FUNCTION printReport(title, results)
+    Display the title
+    Display the column headers Year, Year End Balance, Year End Earned Interest
+    FOR each result in results
+        Display year
+        Display formatted year end balance
+        Display formatted year end interest
+    END FOR
+END FUNCTION
+
+FUNCTION main
+    Create an Investment object
+    Call printInputScreen with showValues false
+    Call readValue for initial investment
+    Call readValue for monthly deposit
+    Call readValue for annual interest
+    Call readValue for number of years
+    Display "Press Enter to continue"
+    Wait for the user to press Enter
+    Call printInputScreen with showValues true
+    Call calculateWithoutDeposits
+    Call printReport for the results without deposits
+    Call calculateWithDeposits
+    Call printReport for the results with deposits
+    Return zero
+END FUNCTION
